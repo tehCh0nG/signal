@@ -1,4 +1,6 @@
-This package makes it easy to send notifications using [Signal](https://signal.org) with Laravel 5.5+, 6.x and 7.x
+## Signal notification channel for Laravel
+
+Easily send end-to-end encrypted notifications for Laravel using [Signal](https://signal.org).
 
 ## Contents
 
