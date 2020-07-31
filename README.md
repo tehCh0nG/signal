@@ -37,7 +37,7 @@ SIGNAL_USERNAME="+12345556789" # Prefix ("+") and country code are required.
 
 ## Usage
 
-```//...
+``//...
 use NotificationChannels\Signal\SignalChannel;
 use NotificationChannels\Signal\SignalMessage;
 use Illuminate\Notifications\Notification;
@@ -54,7 +54,7 @@ class AccountCreated extends Notification
 	public function toSignal($notifiable)
 	{
 		return SignalMessage::create("Welcome to {$notifiable->service}! Your account is now active.");
-	}`
+	}``
 
 	Notifications will be sent to the `recipient` attribute of the Notifiable model.
 
