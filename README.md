@@ -37,7 +37,7 @@ SIGNAL_USERNAME="+12345556789" # Prefix ("+") and country code are required.
 
 ## Usage
 
-`//...
+```//...
 use NotificationChannels\Signal\SignalChannel;
 use NotificationChannels\Signal\SignalMessage;
 use Illuminate\Notifications\Notification;
