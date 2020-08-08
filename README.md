@@ -54,7 +54,7 @@ class AccountCreated extends Notification
 	public function toSignal($notifiable)
 	{
 		return (new SignalMessage())
-			->message("This is a test Laravel notification message over Signal.");
+			->message("This is a test Laravel notification message over Signal.")
 			->recipient("+12345556789");
 	}
 ```
