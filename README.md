@@ -23,7 +23,7 @@ This package requires [`signal-cli`](https://github.com/AsamK/signal-cli) to com
 
 Extract the binary file to a directory of your choice. Signal-cli requires JRE 7 or newer.
 
-2) Set your JAVA_HOME path in SignalChannel.
+2) Set your signal-cli and JAVA_HOME paths in SignalChannel.
 
 3) Register your phone number (username) with the Signal service:
 ``` bash
@@ -48,12 +48,14 @@ class AccountCreated extends Notification
 
 	public function via($notifiable)
 	{
-		return [Signal::class];
+		return [SignalChannel::class];
 	}
 
 	public function toSignal($notifiable)
 	{
-		return SignalMessage::create("Welcome to {$notifiable->service}! Your account is now active.");
+		return (new SignalMessage())
+			->message("This is a test Laravel notification message over Signal.");
+			->recipient("+12345556789");
 	}
 ```
 
@@ -62,6 +64,7 @@ Notifications will be sent to the `recipient` attribute of the Notifiable model.
 ### Available Message methods
 
 `message 'string'`
+`recipient 'string'`
 
 ## Changelog
 
