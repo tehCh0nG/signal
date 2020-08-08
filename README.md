@@ -63,9 +63,9 @@ Notifications will be sent to the `recipient` attribute of the Notifiable model.
 
 ### Available Message methods
 
-`message 'string'
+`message 'string'`
 
-recipient 'string'`
+`recipient 'string'`
 
 ## Changelog
 
