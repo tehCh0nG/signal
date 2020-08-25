@@ -3,6 +3,7 @@
 namespace NotificationChannels\Signal;
 
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Arr;
 use NotificationChannels\Signal\Exceptions\CouldNotSendNotification;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -26,23 +27,28 @@ class SignalChannel
 
     public function send($notifiable, Notification $notification)
     {
-        $message = $notification->toSignal($notifiable);
+        $collection = collect($notification->toSignal($notifiable));
 
-        $message = new SignalMessage($message);
+        $recipient = $collection->get('recipient');
+        $message = $collection->get('message');
 
         //Run signal-cli via Symfony Process.
         $result = new Process(
-            ['../signal-cli-0.6.8/bin/signal-cli', '--username',$username,'send','--message',$message,$recipient],
+            [config('signal-notification-channel.signal_cli'),
+            '--username',config('signal-notification-channel.username'),
+            'send','--message',$message,
+            $recipient],
             //Pass JAVA_HOME to Symfony so signal-cli can run.
             null,
-            ['JAVA_HOME' => '/path/to/java']
+            ['JAVA_HOME' => config('signal-notification-channel.java_location')]
         );
 
+        $result->run();
+
         if (!$result->isSuccessful()) {
-            $symfonyerror = new ProcessFailedException($result);
-            throw CouldNotSendNotification::serviceRespondedWithAnError($response);
+          throw new ProcessFailedException($result);
         }
 
-        return $send->getOutput();
+        return $result;
     }
 }
