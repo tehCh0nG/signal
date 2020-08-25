@@ -27,9 +27,23 @@ class MessageTest extends TestCase
 
   public function sets_username()
   {
-    $this->message->sender('+12345556789');
+    $this->message->username('+12345556789');
 
-    $this->assertEquals('+12345556789', $this->message->sender);
+    $this->assertEquals('+12345556789', $this->message->username);
+  }
+
+  public function sets_recipient()
+  {
+    $this->message->recipient('+12345556789');
+
+    $this->assertEquals('+12345556789', $this->message->recipient);
+  }
+
+  public function sets_message()
+  {
+    $this->message('Test message');
+
+    $this->assertEquals('Test message', $this->message());
   }
 
 }
